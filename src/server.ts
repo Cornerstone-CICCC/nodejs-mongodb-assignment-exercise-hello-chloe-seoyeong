@@ -11,8 +11,12 @@ app.use(express.json());
 
 // Connect to MongoDB and Start Server
 const PORT = process.env.PORT || 3000;
-const DB_URI = process.env.DATABASE_URI!;
 const DB_NAME = process.env.DATABASE_NAME;
+if (!process.env.DATABASE_URI) {
+  throw Error("Missing connection string");
+}
+const DB_URI = process.env.DATABASE_URI;
+
 mongoose
   .connect(DB_URI, { dbName: DB_NAME })
   .then(() => {
