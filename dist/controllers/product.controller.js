@@ -75,10 +75,21 @@ const updateProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 // Delete product by id
+const deleteProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const product = yield product_model_1.Product.findByIdAndDelete(req.params.id);
+        res.status(200).json(product);
+    }
+    catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Unable to delete product by id" });
+    }
+});
 exports.default = {
     addProduct,
     getAllProducts,
     getProductById,
     getProductsByName,
     updateProduct,
+    deleteProduct,
 };

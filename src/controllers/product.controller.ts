@@ -72,6 +72,15 @@ const updateProduct = async (
 };
 
 // Delete product by id
+const deleteProduct = async (req: Request<{ id: string }>, res: Response) => {
+  try {
+    const product = await Product.findByIdAndDelete(req.params.id);
+    res.status(200).json(product);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Unable to delete product by id" });
+  }
+};
 
 export default {
   addProduct,
@@ -79,4 +88,5 @@ export default {
   getProductById,
   getProductsByName,
   updateProduct,
+  deleteProduct,
 };
