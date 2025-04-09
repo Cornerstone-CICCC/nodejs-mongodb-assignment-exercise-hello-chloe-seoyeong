@@ -33,6 +33,22 @@ const getProductById = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 // Get products by name
+const getProductsByName = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { productName } = req.query;
+        const products = yield product_model_1.Product.find({
+            productName: {
+                $regex: productName,
+                $options: "i",
+            },
+        });
+        res.status(200).json(products);
+    }
+    catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Unable to get products by name" });
+    }
+});
 // Add product
 const addProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -51,4 +67,5 @@ exports.default = {
     addProduct,
     getAllProducts,
     getProductById,
+    getProductsByName,
 };

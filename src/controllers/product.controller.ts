@@ -24,6 +24,24 @@ const getProductById = async (req: Request<{ id: string }>, res: Response) => {
 };
 
 // Get products by name
+const getProductsByName = async (
+  req: Request<{}, {}, {}, { productName: string }>,
+  res: Response
+) => {
+  try {
+    const { productName } = req.query;
+    const products = await Product.find({
+      productName: {
+        $regex: productName,
+        $options: "i",
+      },
+    });
+    res.status(200).json(products);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Unable to get products by name" });
+  }
+};
 
 // Add product
 const addProduct = async (req: Request<{}, {}, IProduct>, res: Response) => {
@@ -45,4 +63,5 @@ export default {
   addProduct,
   getAllProducts,
   getProductById,
+  getProductsByName,
 };
