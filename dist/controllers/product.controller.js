@@ -11,6 +11,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const product_model_1 = require("../models/product.model");
 // Get all products
+const getAllProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const products = yield product_model_1.Product.find();
+        res.status(200).json(products);
+    }
+    catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Unable to get all products" });
+    }
+});
 // Get product by id
 // Get product by name
 // Add product
@@ -29,4 +39,5 @@ const addProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 // Delete product by id
 exports.default = {
     addProduct,
+    getAllProducts,
 };
