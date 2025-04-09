@@ -1,6 +1,7 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import productRouter from "./routes/product.routes";
 dotenv.config();
 
 // Create server
@@ -8,6 +9,14 @@ const app = express();
 
 // Middleware
 app.use(express.json());
+
+// Routes
+app.use("/products", productRouter);
+
+// Fallbask
+app.use((req: Request, res: Response) => {
+  res.status(404).json({ message: `Invalid Route` });
+});
 
 // Connect to MongoDB and Start Server
 const PORT = process.env.PORT || 3000;

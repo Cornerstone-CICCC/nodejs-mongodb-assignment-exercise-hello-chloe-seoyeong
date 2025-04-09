@@ -6,11 +6,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const dotenv_1 = __importDefault(require("dotenv"));
+const product_routes_1 = __importDefault(require("./routes/product.routes"));
 dotenv_1.default.config();
 // Create server
 const app = (0, express_1.default)();
 // Middleware
 app.use(express_1.default.json());
+// Routes
+app.use("/products", product_routes_1.default);
+// Fallbask
+app.use((req, res) => {
+    res.status(404).json({ message: `Invalid Route` });
+});
 // Connect to MongoDB and Start Server
 const PORT = process.env.PORT || 3000;
 const DB_NAME = process.env.DATABASE_NAME;
