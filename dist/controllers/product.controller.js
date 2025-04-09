@@ -62,10 +62,23 @@ const addProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
 });
 // Update product by id
+const updateProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const product = yield product_model_1.Product.findByIdAndUpdate(req.params.id, req.body, {
+            new: true,
+        });
+        res.status(200).json(product);
+    }
+    catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Unable to update product" });
+    }
+});
 // Delete product by id
 exports.default = {
     addProduct,
     getAllProducts,
     getProductById,
     getProductsByName,
+    updateProduct,
 };

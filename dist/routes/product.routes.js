@@ -10,4 +10,5 @@ productRouter.get("/search", product_controller_1.default.getProductsByName);
 productRouter.post("/", product_controller_1.default.addProduct);
 productRouter.get("/", product_controller_1.default.getAllProducts);
 productRouter.get("/:id", product_controller_1.default.getProductById);
+productRouter.put("/:id", product_controller_1.default.updateProduct);
 exports.default = productRouter;

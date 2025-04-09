@@ -56,6 +56,20 @@ const addProduct = async (req: Request<{}, {}, IProduct>, res: Response) => {
 };
 
 // Update product by id
+const updateProduct = async (
+  req: Request<{ id: string }, {}, Partial<IProduct>>,
+  res: Response
+) => {
+  try {
+    const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
+    res.status(200).json(product);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Unable to update product" });
+  }
+};
 
 // Delete product by id
 
@@ -64,4 +78,5 @@ export default {
   getAllProducts,
   getProductById,
   getProductsByName,
+  updateProduct,
 };
