@@ -11,9 +11,19 @@ const getAllProducts = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Unable to get all products" });
   }
 };
-// Get product by id
 
-// Get product by name
+// Get product by id
+const getProductById = async (req: Request<{ id: string }>, res: Response) => {
+  try {
+    const product = await Product.findById(req.params.id);
+    res.status(200).json(product);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Unable to get product by id" });
+  }
+};
+
+// Get products by name
 
 // Add product
 const addProduct = async (req: Request<{}, {}, IProduct>, res: Response) => {
@@ -34,4 +44,5 @@ const addProduct = async (req: Request<{}, {}, IProduct>, res: Response) => {
 export default {
   addProduct,
   getAllProducts,
+  getProductById,
 };

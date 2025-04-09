@@ -22,7 +22,17 @@ const getAllProducts = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 // Get product by id
-// Get product by name
+const getProductById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const product = yield product_model_1.Product.findById(req.params.id);
+        res.status(200).json(product);
+    }
+    catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Unable to get product by id" });
+    }
+});
+// Get products by name
 // Add product
 const addProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -40,4 +50,5 @@ const addProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 exports.default = {
     addProduct,
     getAllProducts,
+    getProductById,
 };
